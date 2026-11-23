@@ -1,0 +1,6 @@
+{
+  "name": "oracle-skills-sre",
+  "version": "1.0.0",
+  "description": "Oracle domain skills for Azure SRE Agent",
+  "skills": "./"
+}
