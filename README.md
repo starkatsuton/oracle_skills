@@ -11,19 +11,12 @@ repository URL. Choose **db**, **apex**, **fusion**, **graal**, or **oci**, conf
 that the domain skill is listed, and select **Install**. Nested guides like Data
 Guard are included in their domain package and are not installed separately.
 
-The [marketplace manifest](./.github/plugin/marketplace.json) and packages under
-[`plugins/`](./plugins/) are generated. Edit the source files in the top-level
-domain directories, then run these commands with PowerShell 7.4 or later and
-commit the generated files:
+To install all five together, use **Install GitHub plugin** with the repository
+URL and leave **Path in repo** blank. The [root plugin manifest](./plugin.json)
+uses the same skill directories as the [marketplace](./.github/plugin/marketplace.json).
 
-```powershell
-pwsh -File .\scripts\build-sre-marketplace.ps1
-pwsh -File .\scripts\build-sre-marketplace.ps1 -Check
-```
-
-If a skill or supporting file was renamed or removed, the script reports obsolete
-package files. Remove those files explicitly, then rerun the check. Refresh the
-marketplace in SRE Agent after publishing a change.
+Edit skills directly under [`plugins/`](./plugins/); there is no separate source
+copy or generation step. Refresh the marketplace after publishing changes.
 
 ## Repository Goals
 
@@ -34,11 +27,11 @@ marketplace in SRE Agent after publishing a change.
 
 ## Domains
 
-- `db/` is the active Oracle Database domain and includes database, ORDS, SQLcl, VecDB, framework, container, and agent workflow skills.
-- `oci/` contains Oracle Cloud Infrastructure skills, including OCI Functions deployment and troubleshooting, OCI Kubernetes Engine cluster design and troubleshooting, OCI IoT Platform digital twin workflows, plus Enterprise AI guidance for OCI Generative AI, agents, RAG, governance, model endpoints, Autonomous Database, APEX, and integrations.
-- `fusion/` is the root for future Oracle Fusion skills.
-- `apex/` is the root for future Oracle APEX skills.
-- `graal/` contains GraalVM skills, starting with Native Image.
+- [db](./plugins/oracle-db/skills/db/) includes Oracle Database, ORDS, SQLcl, VecDB, framework, container, and agent workflow guidance.
+- [oci](./plugins/oracle-oci/skills/oci/) covers OCI Functions, Kubernetes Engine, IoT Platform, and Enterprise AI.
+- [fusion](./plugins/oracle-fusion/skills/fusion/) is a placeholder for future Oracle Fusion guidance.
+- [apex](./plugins/oracle-apex/skills/apex/) covers Oracle APEX application development.
+- [graal](./plugins/oracle-graal/skills/graal/) covers GraalVM Native Image.
 
 ## Start Here
 
@@ -50,68 +43,18 @@ marketplace in SRE Agent after publishing a change.
 
 ```text
 .
-├── db/
-│   ├── SKILL.md
-│   ├── admin/
-│   ├── agent/
-│   ├── appdev/
-│   ├── architecture/
-│   ├── containers/
-│   ├── design/
-│   ├── devops/
-│   ├── features/
-│   ├── frameworks/
-│   ├── migrations/
-│   ├── monitoring/
-│   ├── ords/
-│   ├── performance/
-│   ├── plsql/
-│   ├── security/
-│   ├── sql-dev/
-│   ├── sqlcl/
-│   └── vecdb/
-├── fusion/
-│   └── SKILL.md
-├── apex/
-│   └── SKILL.md
-├── graal/
-│   ├── SKILL.md
-│   └── native-image/
-│       ├── build-native-image.md
-│       ├── native-build-tools.md
-│       ├── reachability-metadata.md
-│       └── troubleshooting.md
-└── oci/
-    ├── SKILL.md
-    ├── enterprise-ai/
-    │   ├── SKILL.md
-    │   ├── models/
-    │   ├── agent-workflows/
-    │   ├── governance/
-    │   ├── data/
-    │   ├── cost/
-    │   └── integrations/
-    ├── functions/
-    │   ├── oci-functions-deploy/
-    │   └── oci-functions-troubleshoot/
-    ├── iot-platform/
-    │   ├── SKILL.md
-    │   ├── agents/
-    │   ├── references/
-    │   ├── scripts/
-    │   ├── templates/
-    │   └── tests/
-    └── oke/
-        ├── cluster-design.md
-        ├── troubleshooting.md
-        ├── gva-node-pools.md
-        ├── multus-multihome.md
-        ├── skills/
-        ├── scripts/
-        ├── agents/
-        ├── shared/
-        ├── examples/
-        └── tests/
+├── .github/plugin/marketplace.json
+├── plugin.json
+└── plugins/
+    ├── oracle-apex/
+    ├── oracle-db/
+    │   ├── plugin.json
+    │   └── skills/db/
+    │       ├── SKILL.md
+    │       └── ... (supporting files)
+    ├── oracle-fusion/
+    ├── oracle-graal/
+    └── oracle-oci/
 ```
 
 Each domain has its own `SKILL.md` and any supporting index files it needs.

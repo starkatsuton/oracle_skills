@@ -2,5 +2,11 @@
   "name": "oracle-skills-sre",
   "version": "1.0.0",
   "description": "Oracle domain skills for Azure SRE Agent",
-  "skills": "./"
+  "skills": [
+    "plugins/oracle-apex/skills/",
+    "plugins/oracle-db/skills/",
+    "plugins/oracle-fusion/skills/",
+    "plugins/oracle-graal/skills/",
+    "plugins/oracle-oci/skills/"
+  ]
 }

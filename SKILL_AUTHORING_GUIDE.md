@@ -1,6 +1,6 @@
 # Skill Authoring Guide
 
-This repository is the Oracle-wide source for curated skills organized by domain at the repository root.
+This repository contains Oracle domain skills for Azure SRE Agent.
 
 Use this guide when adding or updating skills so the repository stays consistent across Oracle Database, OCI, Fusion, and future domains.
 
@@ -13,13 +13,15 @@ Use this guide when adding or updating skills so the repository stays consistent
 
 ## Repository Model
 
-Skills are grouped by root-level domain directory:
+Each domain lives in a standalone marketplace plugin. Edit skill content in
+place; the marketplace and the all-skills bundle both use these same files.
 
 ```text
-.
-├── db/
-├── oci/
-└── fusion/
+plugins/oracle-db/
+├── plugin.json
+└── skills/db/
+    ├── SKILL.md
+    └── sqlcl/
 ```
 
 Each domain should own:
@@ -27,7 +29,7 @@ Each domain should own:
 - A `SKILL.md` file that explains the domain and how to navigate it.
 - Topic folders or markdown files that stay coherent within that domain.
 
-Domains can contain nested skills when a large OCI, APEX, Database, or Fusion capability needs its own router. For example, OCI Enterprise AI lives under `oci/enterprise-ai/` because it is a subset of OCI guidance.
+Nested guides are supporting files, not separate marketplace entries. For example, Enterprise AI lives under `plugins/oracle-oci/skills/oci/enterprise-ai/`.
 
 Each installable domain `SKILL.md` must start with YAML front matter containing
 `name` and `description` fields. Skill installers use these fields to discover
@@ -64,7 +66,7 @@ For stub domains that do not yet have real content, keep `SKILL.md` short. It sh
 - Use short, stable, descriptive filenames in lowercase with hyphens.
 - Keep one primary topic per file.
 - Avoid filenames tied to temporary product marketing language unless that name is the official product term.
-- Prefer paths like `db/sqlcl/sqlcl-mcp-server.md` over broad catch-all files.
+- Prefer paths like `sqlcl/sqlcl-mcp-server.md` within the skill directory over broad catch-all files.
 
 ## Research Standards
 

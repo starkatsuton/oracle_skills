@@ -1,8 +1,0 @@
-pageGroup administration (
-    name: Administration
-)
-
-pageGroup user-settings (
-    name: User Settings
-)
-
