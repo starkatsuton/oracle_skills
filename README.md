@@ -6,37 +6,24 @@ The goal is to give developers and agents a single place to find source-backed O
 
 ## Installation
 
-Install a domain by appending the root-level domain directory to the repository name:
+In Azure SRE Agent, open **Plugins > Manage marketplaces** and add the GitHub
+repository URL. Choose **db**, **apex**, **fusion**, **graal**, or **oci**, confirm
+that the domain skill is listed, and select **Install**. Nested guides like Data
+Guard are included in their domain package and are not installed separately.
 
-```bash
-npx skills add oracle/skills/db
-npx skills add oracle/skills/oci
-npx skills add oracle/skills/graal
-...
+The [marketplace manifest](./.github/plugin/marketplace.json) and packages under
+[`plugins/`](./plugins/) are generated. Edit the source files in the top-level
+domain directories, then run these commands with PowerShell 7.4 or later and
+commit the generated files:
+
+```powershell
+pwsh -File .\scripts\build-sre-marketplace.ps1
+pwsh -File .\scripts\build-sre-marketplace.ps1 -Check
 ```
 
-### Install in Claude Code
-
-This repository also ships as a Claude Code plugin marketplace (`.claude-plugin/marketplace.json`), where each domain folder (`apex`, `db`, `fusion`, `graal`, `oci`) is published as its own plugin.
-
-Register the marketplace, then install the domain plugins you need:
-
-```bash
-# Register this repo as a marketplace
-/plugin marketplace add oracle/skills
-
-# Install one or more domain plugins
-/plugin install db@oracle-skills
-/plugin install graal@oracle-skills
-```
-
-Already cloned the repo locally? Point the marketplace at the local path instead:
-
-```bash
-/plugin marketplace add ./
-```
-
-Browse and toggle installed plugins anytime with `/plugin`. Enabled plugins are tracked in `.claude/settings.json` under `enabledPlugins`.
+If a skill or supporting file was renamed or removed, the script reports obsolete
+package files. Remove those files explicitly, then rerun the check. Refresh the
+marketplace in SRE Agent after publishing a change.
 
 ## Repository Goals
 
@@ -55,9 +42,9 @@ Browse and toggle installed plugins anytime with `/plugin`. Enabled plugins are 
 
 ## Start Here
 
-1. Pick the domain closest to your task.
-2. Install that domain skill.
-3. Add other domain skills only when needed.
+1. Pick the skill closest to your task.
+2. Install that skill from the SRE Agent marketplace.
+3. Add other skills only when needed.
 
 ## Repository Layout
 
